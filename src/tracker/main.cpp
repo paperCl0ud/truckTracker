@@ -9,6 +9,8 @@
 const uint8_t NUM_VALS_IN_FIRST_STR = 2;
 const uint8_t NUM_VALS_IN_STR       = 3;
 
+const std::string OUTPUT_FILE_NAME  = "truckTrack.txt";
+
 std::vector<double> splitString(const std::string& string, char seperator)
 {
     std::string::size_type lastPos = 0;
@@ -42,7 +44,7 @@ int main(int argc, char *argv[])
     }
 
     std::ifstream inFile(inputFileName);
-    std::ofstream outFile(inputFileName);
+    std::ofstream outFile(OUTPUT_FILE_NAME);
 
     if (outFile.is_open())
     {
