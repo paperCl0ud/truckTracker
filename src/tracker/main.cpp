@@ -41,13 +41,19 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    std::ifstream file(inputFileName);
+    std::ifstream inFile(inputFileName);
+    std::ofstream outFile(inputFileName);
 
-    if (file.is_open())
+    if (outFile.is_open())
+    {
+        outFile << std::fixed << std::setprecision(8);
+    }
+
+    if (inFile.is_open())
     {
         std::string line;
 
-        getline(file, line);
+        getline(inFile, line);
 
         std::vector<double> vec = splitString(line, ' ');
 
@@ -63,7 +69,7 @@ int main(int argc, char *argv[])
         double b = vec[0];
         double R = vec[1];
 
-        while (getline(file, line, '\n'))
+        while (getline(inFile, line, '\n'))
         {
             vec = splitString(line, ' ');
 
@@ -79,9 +85,17 @@ int main(int argc, char *argv[])
 
             currentX = ((angleLeft + angleRight) * (0.5 * R)) * cos((angleRight - angleLeft) * (R / b));
             currentY = ((angleLeft + angleRight) * (0.5 * R)) * sin((angleRight - angleLeft) * (R / b));
+
+            if (outFile.is_open())
+            {
+                outFile << timeStamp << " " 
+                        << currentX  << " "
+                        << currentY  << std::endl;
+            }
         }
 
-        file.close();
+        inFile.close();
+        outFile.close();
 
         double radiusVector = sqrt(pow(currentX, 2) + pow(currentY, 2));
 
